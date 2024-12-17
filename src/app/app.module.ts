@@ -10,11 +10,15 @@ import { ProductCategoryMenuComponent } from './components/product-category-menu
 import { SearchComponent } from './components/search/search.component';
 import { FormsModule } from '@angular/forms';
 import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
+
+//
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
 import { MatInputModule } from '@angular/material/input';
 import { MatFormFieldModule } from '@angular/material/form-field'
+import { MatCardModule } from '@angular/material/card';
 
+const matModules = [MatFormFieldModule, MatInputModule, MatButtonModule, MatIconModule, MatCardModule]
 @NgModule({
   declarations: [
     AppComponent,
@@ -26,7 +30,7 @@ import { MatFormFieldModule } from '@angular/material/form-field'
     BrowserModule,
     AppRoutingModule,
     FormsModule,
-    MatFormFieldModule, MatInputModule, MatButtonModule, MatIconModule
+    matModules
   ],
   providers: [ProductService, provideHttpClient(), provideAnimationsAsync()],
   bootstrap: [AppComponent]

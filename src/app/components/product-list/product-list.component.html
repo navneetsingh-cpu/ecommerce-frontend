@@ -5,16 +5,22 @@
         <!-- loop over the collection of products -->
         <div
           *ngFor="let tempProduct of productService.products"
-          class="col-md-3"
+          class="col-md-3 py-3"
         >
-          <div class="product-box">
-            <img src="{{ tempProduct.imageUrl }}" class="img-responsive" />
-            <h1>{{ tempProduct.name }}</h1>
-            <div class="price">
-              {{ tempProduct.unitPrice | currency : "USD" }}
-            </div>
-            <a href="#" class="primary-btn">Add to cart</a>
-          </div>
+          <mat-card class="example-card" appearance="outlined">
+            <mat-card-header>
+              <mat-card-title class="title">{{ tempProduct.name }}</mat-card-title>
+              <mat-card-subtitle>{{ tempProduct.unitPrice | currency : "USD" }}</mat-card-subtitle>
+            </mat-card-header>
+            <img
+              mat-card-image
+              src="{{ tempProduct.imageUrl }}"
+              alt="Photo of a Shiba Inu"
+            />
+            <mat-card-actions>
+              <button mat-button>Add to cart</button>
+            </mat-card-actions>
+          </mat-card>
         </div>
 
         <!-- if products empty then display a message-->
