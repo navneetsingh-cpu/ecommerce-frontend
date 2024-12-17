@@ -8,6 +8,7 @@ import { ProductService } from './services/product.service';
 import { provideHttpClient } from '@angular/common/http';
 import { ProductCategoryMenuComponent } from './components/product-category-menu/product-category-menu.component';
 import { SearchComponent } from './components/search/search.component';
+import { FormsModule } from '@angular/forms';
 
 
 @NgModule({
@@ -20,6 +21,7 @@ import { SearchComponent } from './components/search/search.component';
   imports: [
     BrowserModule,
     AppRoutingModule,
+    FormsModule
   ],
   providers: [ProductService, provideHttpClient()],
   bootstrap: [AppComponent]

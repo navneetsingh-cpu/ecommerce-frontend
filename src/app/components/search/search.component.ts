@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { ProductService } from '../../services/product.service';
 import { debounceTime, distinctUntilChanged, Subject, switchMap } from 'rxjs';
+import { NavigationEnd, Router } from '@angular/router';
 
 @Component({
   selector: 'app-search',
@@ -12,8 +13,13 @@ import { debounceTime, distinctUntilChanged, Subject, switchMap } from 'rxjs';
 export class SearchComponent {
   private searchSubject = new Subject<string>();
 
-  constructor(private productService: ProductService) {
-
+  public inputValue = '';
+  constructor(private productService: ProductService, private router: Router) {
+    router.events.subscribe(event => {
+      if (event instanceof NavigationEnd) {
+        this.inputValue = ''; // Clear the input
+      }
+    });
   }
 
   ngOnInit() {
