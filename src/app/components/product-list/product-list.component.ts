@@ -12,10 +12,11 @@ import { ActivatedRoute } from '@angular/router';
 })
 export class ProductListComponent {
 
-  products: Product[] = [];
-  currentCategoryId: number = 1;
 
-  constructor(private productService: ProductService,
+  currentCategoryId: number = 1;
+  currentCategoryName = 'Books';
+
+  constructor(public productService: ProductService,
     private route: ActivatedRoute) {
 
   }
@@ -29,16 +30,23 @@ export class ProductListComponent {
 
   listProducts() {
     const hasCategoryid: boolean = this.route.snapshot.paramMap.has('id');
+    const hasCategoryName: boolean = this.route.snapshot.paramMap.has('categoryName');
 
     if (hasCategoryid) {
       this.currentCategoryId = +this.route.snapshot.paramMap.get('id')!;
     } else {
       this.currentCategoryId = 1;
-
     }
+
+    if (hasCategoryName) {
+      this.currentCategoryName = this.route.snapshot.paramMap.get('name')!;
+    } else {
+      this.currentCategoryName = 'Books';
+    }
+
     this.productService.getProductList(this.currentCategoryId).subscribe(
       data => {
-        this.products = [...data];
+        this.productService.products = [...data];
       }
     )
   }
