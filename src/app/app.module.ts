@@ -17,8 +17,9 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatInputModule } from '@angular/material/input';
 import { MatFormFieldModule } from '@angular/material/form-field'
 import { MatCardModule } from '@angular/material/card';
+import { MatSidenavModule } from '@angular/material/sidenav';
 
-const matModules = [MatFormFieldModule, MatInputModule, MatButtonModule, MatIconModule, MatCardModule]
+const matModules = [MatFormFieldModule, MatInputModule, MatButtonModule, MatIconModule, MatCardModule, MatSidenavModule]
 @NgModule({
   declarations: [
     AppComponent,

@@ -1,54 +1,86 @@
 <div class="page-wrapper">
   <!-- MENU SIDEBAR-->
-  <aside class="menu-sidebar d-none d-lg-block">
-    <div class="logo">
-      <a href="#">
-        <img
-          src="assets/images/logo.png"
-          alt="luv2shop"
-          class="img-responsive"
-        />
-      </a>
-    </div>
 
-    <app-product-category-menu></app-product-category-menu>
-  </aside>
-  <!-- END MENU SIDEBAR-->
+  <mat-drawer-container class="example-container" style="width: 100%" autosize>
+    <mat-drawer #drawer class="example-sidenav" mode="push">
+      <aside class="menu-sidebar d-none d-lg-block">
+        <div class="logo">
+          <a href="#">
+            <img
+              src="assets/images/logo.png"
+              alt="luv2shop"
+              class="img-responsive"
+            />
+          </a>
 
-  <div class="page-container">
-    <!-- HEADER DESKTOP-->
-    <header class="header-desktop">
-      <div class="section-content section-content-p30">
-        <div class="container-fluid">
-          <div class="header-wrap">
-            <app-search></app-search>
+          <button
+            mat-icon-button
+            aria-label="Example icon button with a menu icon"
+            (click)="drawer.close()"
+            class="close-icon"
+          >
+            <mat-icon
+              aria-hidden="false"
+              aria-label="Example home icon"
+              fontIcon="close"
+            ></mat-icon>
+          </button>
+        </div>
 
-            <div class="cart-area d-n">
-              <a href="shopping-detail.html">
-                <div class="total">19.22 <span> 2</span></div>
-                <i class="fa fa-shopping-cart" aria-hidden="true"></i>
-              </a>
+        <app-product-category-menu></app-product-category-menu>
+      </aside>
+    </mat-drawer>
+
+    <div class="example-sidenav-content">
+      <div class="">
+        <!-- HEADER DESKTOP-->
+        <header class="header-desktop">
+          <div class="section-content section-content-p30">
+            <div class="container-fluid">
+              <div class="header-wrap">
+                <button
+                  mat-icon-button
+                  aria-label="Example icon button with a menu icon"
+                  (click)="drawer.toggle()"
+                >
+                  <mat-icon
+                    aria-hidden="false"
+                    aria-label="Example home icon"
+                    fontIcon="menu"
+                  ></mat-icon>
+                </button>
+
+                <app-search></app-search>
+
+                <div class="cart-area d-n">
+                  <a href="shopping-detail.html">
+                    <div class="total">19.22 <span> 2</span></div>
+                    <i class="fa fa-shopping-cart" aria-hidden="true"></i>
+                  </a>
+                </div>
+              </div>
+
+              <div class="account-wrap"></div>
             </div>
           </div>
+        </header>
+        <!-- END HEADER DESKTOP-->
 
-          <div class="account-wrap"></div>
-        </div>
+        <!-- MAIN CONTENT-->
+
+        <router-outlet></router-outlet>
       </div>
-    </header>
-    <!-- END HEADER DESKTOP-->
+    </div>
 
-    <!-- MAIN CONTENT-->
-
-    <router-outlet></router-outlet>
-  </div>
+    <footer>
+      <ul>
+        <li><a href="#">About Us</a></li>
+        <li><a href="#">Contact Us</a></li>
+        <li><a href="#">Help</a></li>
+      </ul>
+    </footer>
+  </mat-drawer-container>
+  <!-- END MENU SIDEBAR-->
 </div>
 
 <!-- ENDS PAGE CONTAINER -->
-
-<footer>
-  <ul>
-    <li><a href="#">About Us</a></li>
-    <li><a href="#">Contact Us</a></li>
-    <li><a href="#">Help</a></li>
-  </ul>
-</footer>
