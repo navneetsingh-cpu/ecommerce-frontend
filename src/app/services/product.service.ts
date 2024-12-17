@@ -1,6 +1,6 @@
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { map, Observable } from 'rxjs';
+import { BehaviorSubject, map, Observable } from 'rxjs';
 import { Product } from '../common/product.model';
 import { ProductCategory } from '../common/product-category.model';
 
@@ -34,10 +34,55 @@ export class ProductService {
   private baseUrl = 'http://localhost:8080/api/products';
   private categoryUrl = 'http://localhost:8080/api/product-category';
   products: Product[] = [];
+  cartItems: Product[] = [];
+
+  // BehaviorSubject allows components to react to cart changes
+  private cartSubject = new BehaviorSubject<Product[]>(this.cartItems);
 
 
   constructor(private httpClient: HttpClient) {
   }
+  // Method to get the current cart as an Observable
+  getCart(): Observable<Product[]> {
+    return this.cartSubject.asObservable();
+  }
+
+  // Method to add a product to the cart
+  addToCart(product: Product): void {
+    // Check if the product is already in the cart
+    const existingProduct = this.cartItems.find((item) => item.id === product.id);
+
+    if (existingProduct) {
+      // Increment the quantity if the product exists
+      existingProduct.quantity! += 1;
+    } else {
+      // Add the product with quantity = 1
+      product.quantity = 1;
+      this.cartItems.push(product);
+    }
+
+    // Emit updated cart items to all subscribers
+    this.cartSubject.next(this.cartItems);
+  }
+
+  // Method to clear the cart
+  clearCart(): void {
+    this.cartItems = [];
+    this.cartSubject.next(this.cartItems);
+  }
+
+  // Optional: Get total items count
+  getTotalItemsCount(): number {
+    return this.cartItems.reduce((total, product) => total + (product.quantity || 1), 0);
+  }
+
+  getTotalPrice(): number {
+    return this.cartItems.reduce(
+      (total, product) => total + (product.unitPrice * (product.quantity || 1)),
+      0
+    );
+  }
+
 
 
   getProductListPaginate(thePage: number, thePageSize: number, theCategoryId: number): Observable<GetResponseProducts> {

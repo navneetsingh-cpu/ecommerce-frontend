@@ -1,4 +1,6 @@
 export interface Product {
+  id: number;
+  quantity?: number;
   sku: string;
   name: string;
   description: string;

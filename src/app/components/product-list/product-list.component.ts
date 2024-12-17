@@ -12,7 +12,6 @@ import { ActivatedRoute } from '@angular/router';
 })
 export class ProductListComponent {
 
-
   currentCategoryId: number = 1;
   currentCategoryName = 'Books';
 
@@ -33,11 +32,6 @@ export class ProductListComponent {
     this.loadData(0, this.pageSize);
   }
   loadData(page: number, size: number) {
-
-    if (!(page && size && this.currentCategoryId)) {
-      return;
-    }
-
     this.productService.getProductListPaginate(page, size, this.currentCategoryId).subscribe((data) => {
       this.productService.products = [...data._embedded.products];
       this.totalItems = data.page.totalElements;
@@ -71,5 +65,10 @@ export class ProductListComponent {
         this.productService.products = [...data];
       }
     )
+  }
+
+
+  addToCart(product: Product) {
+    this.productService.addToCart(product)
   }
 }
