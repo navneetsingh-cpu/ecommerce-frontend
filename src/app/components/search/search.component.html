@@ -1,10 +1,19 @@
-<form class="form-header" onsubmit="return false;" method="GET">
+<mat-form-field style="margin-top: 20px">
+  <mat-label>Search</mat-label>
   <input
-    class="au-input au-input-xl"
+    matInput
     type="text"
-    name="search"
     [(ngModel)]="inputValue"
-    placeholder="Search for data ..."
     (input)="search($event)"
   />
-</form>
+  @if (inputValue) {
+  <button
+    matSuffix
+    mat-icon-button
+    aria-label="Clear"
+    (click)="inputValue = ''; search({ target: { value: '' } })"
+  >
+    <mat-icon>close</mat-icon>
+  </button>
+  }
+</mat-form-field>
