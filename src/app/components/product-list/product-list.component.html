@@ -9,8 +9,12 @@
         >
           <mat-card class="example-card" appearance="outlined">
             <mat-card-header>
-              <mat-card-title class="title">{{ tempProduct.name }}</mat-card-title>
-              <mat-card-subtitle>{{ tempProduct.unitPrice | currency : "USD" }}</mat-card-subtitle>
+              <mat-card-title class="title">{{
+                tempProduct.name
+              }}</mat-card-title>
+              <mat-card-subtitle>{{
+                tempProduct.unitPrice | currency : "USD"
+              }}</mat-card-subtitle>
             </mat-card-header>
             <img
               mat-card-image
@@ -22,6 +26,15 @@
             </mat-card-actions>
           </mat-card>
         </div>
+
+        <mat-paginator
+          [length]="totalItems"
+          [pageSize]="pageSize"
+          (page)="onPageChange($event)"
+          [pageSizeOptions]="[5, 10, 25, 100]"
+          aria-label="Select page"
+        >
+        </mat-paginator>
 
         <!-- if products empty then display a message-->
         <div

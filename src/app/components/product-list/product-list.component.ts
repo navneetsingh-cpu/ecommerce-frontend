@@ -16,6 +16,10 @@ export class ProductListComponent {
   currentCategoryId: number = 1;
   currentCategoryName = 'Books';
 
+  // page
+  pageSize = 10;
+  totalItems = 0;
+
   constructor(public productService: ProductService,
     private route: ActivatedRoute) {
 
@@ -24,8 +28,26 @@ export class ProductListComponent {
   ngOnInit() {
     this.route.paramMap.subscribe(() => {
       this.listProducts();
-
     })
+
+    this.loadData(0, this.pageSize);
+  }
+  loadData(page: number, size: number) {
+
+    if (!(page && size && this.currentCategoryId)) {
+      return;
+    }
+
+    this.productService.getProductListPaginate(page, size, this.currentCategoryId).subscribe((data) => {
+      this.productService.products = [...data._embedded.products];
+      this.totalItems = data.page.totalElements;
+    });
+  }
+
+  onPageChange(event: any) {
+    const pageIndex = event.pageIndex; // Current page index
+    const pageSize = event.pageSize; // Page size selected
+    this.loadData(pageIndex, pageSize);
   }
 
   listProducts() {
