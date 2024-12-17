@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { Product } from '../../common/product.model';
 import { ProductService } from '../../services/product.service';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-product-list',
@@ -12,19 +13,32 @@ import { ProductService } from '../../services/product.service';
 export class ProductListComponent {
 
   products: Product[] = [];
+  currentCategoryId: number = 1;
 
-  constructor(private productService: ProductService) {
+  constructor(private productService: ProductService,
+    private route: ActivatedRoute) {
 
   }
 
   ngOnInit() {
-    this.listProducts();
+    this.route.paramMap.subscribe(() => {
+      this.listProducts();
+
+    })
   }
 
   listProducts() {
-    this.productService.getProductList().subscribe(
+    const hasCategoryid: boolean = this.route.snapshot.paramMap.has('id');
+
+    if (hasCategoryid) {
+      this.currentCategoryId = +this.route.snapshot.paramMap.get('id')!;
+    } else {
+      this.currentCategoryId = 1;
+
+    }
+    this.productService.getProductList(this.currentCategoryId).subscribe(
       data => {
-        this.products = data;
+        this.products = [...data];
       }
     )
   }
