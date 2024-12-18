@@ -53,21 +53,22 @@
                 <app-search></app-search>
 
                 <div class="cart-area d-n">
-                  <a href="shopping-detail.html">
-                    <div class="total">{{ totalPrice | currency }}</div>
-                    <button
-                      matSuffix
-                      mat-icon-button
-                      color="primary"
-                      style="margin-top: 4px"
+                  <!-- <a href="shopping-detail.html"> -->
+                  <div class="total">{{ totalPrice | currency }}</div>
+                  <button
+                    matSuffix
+                    routerLink="/cart-detail"
+                    mat-icon-button
+                    color="primary"
+                    style="margin-top: 4px"
+                  >
+                    <mat-icon
+                      [matBadge]="totalItems"
+                      [matBadgeHidden]="totalItems === 0"
+                      >shopping_cart</mat-icon
                     >
-                      <mat-icon
-                        [matBadge]="totalItems"
-                        [matBadgeHidden]="totalItems === 0"
-                        >shopping_cart</mat-icon
-                      >
-                    </button>
-                  </a>
+                  </button>
+                  <!-- </a> -->
                 </div>
               </div>
 

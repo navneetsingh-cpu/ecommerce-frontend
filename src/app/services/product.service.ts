@@ -76,13 +76,33 @@ export class ProductService {
     return this.cartItems.reduce((total, product) => total + (product.quantity || 1), 0);
   }
 
+  getTotalItems(): Product[] {
+    return [...this.cartItems];
+  }
+
   getTotalPrice(): number {
     return this.cartItems.reduce(
       (total, product) => total + (product.unitPrice * (product.quantity || 1)),
       0
     );
   }
+  // Remove product from the cart
+  removeFromCart(product: Product): void {
+    const productIndex = this.cartItems.findIndex((item) => item.id === product.id);
 
+    if (productIndex > -1) {
+      const product = this.cartItems[productIndex];
+
+      // Decrease quantity if more than 1, otherwise remove the item
+      if (product.quantity && product.quantity > 1) {
+        product.quantity -= 1;
+      } else {
+        this.cartItems.splice(productIndex, 1); // Remove the product
+      }
+
+      this.cartSubject.next(this.cartItems); // Notify subscribers
+    }
+  }
 
 
   getProductListPaginate(thePage: number, thePageSize: number, theCategoryId: number): Observable<GetResponseProducts> {
