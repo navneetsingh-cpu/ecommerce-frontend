@@ -8,7 +8,7 @@ import { ProductService } from './services/product.service';
 import { provideHttpClient } from '@angular/common/http';
 import { ProductCategoryMenuComponent } from './components/product-category-menu/product-category-menu.component';
 import { SearchComponent } from './components/search/search.component';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
 import { CartDetailComponent } from './components/cart-detail/cart-detail.component';
 
@@ -22,20 +22,24 @@ import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatBadgeModule } from '@angular/material/badge';
 import { MatTableModule } from '@angular/material/table';
+import { CheckoutComponent } from './components/checkout/checkout.component';
+import { MatStepperModule } from '@angular/material/stepper';
 
-const matModules = [MatFormFieldModule, MatInputModule, MatButtonModule, MatIconModule, MatTableModule, MatCardModule, MatBadgeModule, MatSidenavModule, MatPaginatorModule]
+const matModules = [MatFormFieldModule, MatStepperModule, MatInputModule, MatButtonModule, MatIconModule, MatTableModule, MatCardModule, MatBadgeModule, MatSidenavModule, MatPaginatorModule]
 @NgModule({
   declarations: [
     AppComponent,
     ProductListComponent,
     ProductCategoryMenuComponent,
     SearchComponent,
-    CartDetailComponent
+    CartDetailComponent,
+    CheckoutComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     FormsModule,
+    ReactiveFormsModule,
     matModules
   ],
   providers: [ProductService, provideHttpClient(), provideAnimationsAsync()],
