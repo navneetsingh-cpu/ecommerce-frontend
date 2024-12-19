@@ -31,6 +31,7 @@ export class ProductService {
 
 
 
+
   private baseUrl = 'http://localhost:8080/api/products';
   private categoryUrl = 'http://localhost:8080/api/product-category';
   products: Product[] = [];
@@ -42,6 +43,14 @@ export class ProductService {
 
   constructor(private httpClient: HttpClient) {
   }
+
+  placeOrder(purchase: any): Observable<any> {
+
+    const purchaseUrl = `http://localhost:8080/api/checkout/purchase`;
+    return this.httpClient.post<any>(purchaseUrl, purchase);
+  }
+
+
   // Method to get the current cart as an Observable
   getCart(): Observable<Product[]> {
     return this.cartSubject.asObservable();

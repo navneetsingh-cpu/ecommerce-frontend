@@ -38,13 +38,17 @@
         <mat-step [stepControl]="shippingFormGroup">
           <form [formGroup]="shippingFormGroup">
             <h3>Shipping Address</h3>
+
+            <!-- Street -->
             <mat-form-field appearance="fill">
-              <mat-label>Address</mat-label>
-              <input matInput formControlName="address" required />
-              <mat-error *ngIf="shippingFormGroup.get('address')?.invalid">
-                {{ getErrorMessage("address", shippingFormGroup) }}
+              <mat-label>Street</mat-label>
+              <input matInput formControlName="street" required />
+              <mat-error *ngIf="shippingFormGroup.get('street')?.invalid">
+                {{ getErrorMessage("street", shippingFormGroup) }}
               </mat-error>
             </mat-form-field>
+
+            <!-- City -->
             <mat-form-field appearance="fill">
               <mat-label>City</mat-label>
               <input matInput formControlName="city" required />
@@ -52,13 +56,34 @@
                 {{ getErrorMessage("city", shippingFormGroup) }}
               </mat-error>
             </mat-form-field>
+
+            <!-- State -->
             <mat-form-field appearance="fill">
-              <mat-label>Postal Code</mat-label>
-              <input matInput formControlName="postalCode" required />
-              <mat-error *ngIf="shippingFormGroup.get('postalCode')?.invalid">
-                {{ getErrorMessage("postalCode", shippingFormGroup) }}
+              <mat-label>State</mat-label>
+              <input matInput formControlName="state" required />
+              <mat-error *ngIf="shippingFormGroup.get('state')?.invalid">
+                {{ getErrorMessage("state", shippingFormGroup) }}
               </mat-error>
             </mat-form-field>
+
+            <!-- Country -->
+            <mat-form-field appearance="fill">
+              <mat-label>Country</mat-label>
+              <input matInput formControlName="country" required />
+              <mat-error *ngIf="shippingFormGroup.get('country')?.invalid">
+                {{ getErrorMessage("country", shippingFormGroup) }}
+              </mat-error>
+            </mat-form-field>
+
+            <!-- Postal Code -->
+            <mat-form-field appearance="fill">
+              <mat-label>Postal Code</mat-label>
+              <input matInput formControlName="zipCode" required />
+              <mat-error *ngIf="shippingFormGroup.get('zipCode')?.invalid">
+                {{ getErrorMessage("zipCode", shippingFormGroup) }}
+              </mat-error>
+            </mat-form-field>
+
             <div>
               <button mat-button matStepperPrevious>Back</button>
               <button mat-button matStepperNext>Next</button>
@@ -66,37 +91,64 @@
           </form>
         </mat-step>
 
+
         <!-- Step 3: Billing Address -->
         <mat-step [stepControl]="billingFormGroup">
           <form [formGroup]="billingFormGroup">
             <h3>Billing Address</h3>
+
+            <!-- Street -->
             <mat-form-field appearance="fill">
-              <mat-label>Address</mat-label>
-              <input matInput formControlName="address" />
-              <mat-error>
-                {{ getErrorMessage("address", billingFormGroup) }}
+              <mat-label>Street</mat-label>
+              <input matInput formControlName="street" required />
+              <mat-error *ngIf="billingFormGroup.get('street')?.invalid">
+                {{ getErrorMessage("street", billingFormGroup) }}
               </mat-error>
             </mat-form-field>
 
+            <!-- City -->
             <mat-form-field appearance="fill">
               <mat-label>City</mat-label>
-              <input matInput formControlName="city" />
-              <mat-error>
+              <input matInput formControlName="city" required />
+              <mat-error *ngIf="billingFormGroup.get('city')?.invalid">
                 {{ getErrorMessage("city", billingFormGroup) }}
               </mat-error>
             </mat-form-field>
 
+            <!-- State -->
             <mat-form-field appearance="fill">
-              <mat-label>Postal Code</mat-label>
-              <input matInput formControlName="postalCode" />
-              <mat-error>
-                {{ getErrorMessage("postalCode", billingFormGroup) }}
+              <mat-label>State</mat-label>
+              <input matInput formControlName="state" required />
+              <mat-error *ngIf="billingFormGroup.get('state')?.invalid">
+                {{ getErrorMessage("state", billingFormGroup) }}
               </mat-error>
             </mat-form-field>
-            <button mat-button matStepperPrevious>Back</button>
-            <button mat-button matStepperNext>Next</button>
+
+            <!-- Country -->
+            <mat-form-field appearance="fill">
+              <mat-label>Country</mat-label>
+              <input matInput formControlName="country" required />
+              <mat-error *ngIf="billingFormGroup.get('country')?.invalid">
+                {{ getErrorMessage("country", billingFormGroup) }}
+              </mat-error>
+            </mat-form-field>
+
+            <!-- Postal Code -->
+            <mat-form-field appearance="fill">
+              <mat-label>Postal Code</mat-label>
+              <input matInput formControlName="zipCode" required />
+              <mat-error *ngIf="billingFormGroup.get('zipCode')?.invalid">
+                {{ getErrorMessage("zipCode", billingFormGroup) }}
+              </mat-error>
+            </mat-form-field>
+
+            <div>
+              <button mat-button matStepperPrevious>Back</button>
+              <button mat-button matStepperNext>Next</button>
+            </div>
           </form>
         </mat-step>
+
 
         <!-- Step 4: Credit Card Details -->
         <mat-step [stepControl]="paymentFormGroup">

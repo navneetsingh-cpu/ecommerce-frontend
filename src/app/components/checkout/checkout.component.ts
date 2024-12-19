@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { ProductService } from '../../services/product.service';
 
 @Component({
   selector: 'app-checkout',
@@ -14,7 +15,7 @@ export class CheckoutComponent {
   billingFormGroup: FormGroup;
   paymentFormGroup: FormGroup;
 
-  constructor(private _formBuilder: FormBuilder) {
+  constructor(private _formBuilder: FormBuilder, private productService: ProductService) {
     this.personalFormGroup = this._formBuilder.group({
       firstName: ['', Validators.required],
       lastName: ['', Validators.required],
@@ -22,21 +23,19 @@ export class CheckoutComponent {
     });
 
     this.shippingFormGroup = this._formBuilder.group({
-      address: ['', Validators.required],
+      street: ['', Validators.required],
       city: ['', Validators.required],
-      postalCode: [
-        '',
-        [Validators.required], // Accepts 5 digits or ZIP+4 format
-      ],
+      state: ['', Validators.required],
+      country: ['', Validators.required],
+      zipCode: ['', Validators.required],
     });
 
     this.billingFormGroup = this._formBuilder.group({
-      address: ['', Validators.required],
+      street: ['', Validators.required],
       city: ['', Validators.required],
-      postalCode: [
-        '',
-        [Validators.required],
-      ],
+      state: ['', Validators.required],
+      country: ['', Validators.required],
+      zipCode: ['', Validators.required],
     });
 
     this.paymentFormGroup = this._formBuilder.group({
@@ -94,6 +93,36 @@ export class CheckoutComponent {
       console.log('Shipping Address:', this.shippingFormGroup.value);
       console.log('Billing Address:', this.billingFormGroup.value);
       console.log('Payment Info:', this.paymentFormGroup.value);
+
+      const purchase = {
+        customer: {
+          ...this.personalFormGroup.value
+        },
+        shippingAddress: {
+          ...this.shippingFormGroup.value
+        },
+        billingAddress: {
+          ...this.billingFormGroup.value
+        },
+        order: {
+          totalPrice: this.productService.getTotalPrice(),
+          totalQuantity: this.productService.getTotalItemsCount()
+        },
+        orderItems: [
+          ...this.productService.getTotalItems().map((item) => {
+            return {
+              imageUrl: item.imageUrl,
+              quantity: item.quantity,
+              unitPrice: item.unitPrice,
+              productId: item.id,
+            }
+          })
+        ]
+      };
+
+      console.log('purchase', purchase);
+
+      this.productService.placeOrder(purchase).subscribe();
     } else {
       console.log('Form is not valid. Please fix errors.');
     }
